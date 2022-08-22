@@ -21,7 +21,6 @@ const HighestDivision = ({id}) =>{
 
 
     return (
-        
         <ul>
             {resultMaps.map((item, index)=>(
                 <div key={item.matchType}>
