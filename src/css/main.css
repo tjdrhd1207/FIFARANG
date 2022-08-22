@@ -1,0 +1,7 @@
+body{
+    /*height : 100vh;*/
+    width : 100vw;
+    background: url('https://www.urbanbrush.net/web/wp-content/uploads/edd/2020/02/urbanbrush-20200212125558962337.jpg') no-repeat center center fixed;
+    background-size: cover;
+
+}
