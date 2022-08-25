@@ -150,6 +150,7 @@ const TradeList = ({id, tradetype}) => {
                             <td>{item.value}</td>
                             <td>{JSON.stringify(item.tradeDate).substring(1,11)}</td>
                             </CardInfo>
+                            
                         </TR>
                     
                     ))}
