@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .eslintcache
+.README.md
 
 # testing
 /coverage
