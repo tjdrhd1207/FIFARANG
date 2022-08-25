@@ -3,10 +3,21 @@ import background from '../images/background.jpg';
 import styled from 'styled-components';
 import Background from 'components/Background';
 import { createGlobalStyle } from 'styled-components';
-import main from '../css/main.css';
+
 import { Link , Navigate } from "react-router-dom";
 import InputBtn from 'components/InputBtn';
 import { useEffect, useState, useRef, fowardRef } from 'react';
+
+const GlobalStyle = createGlobalStyle`
+
+    body{
+        width : 100vw;
+        background: url('https://www.urbanbrush.net/web/wp-content/uploads/edd/2020/02/urbanbrush-20200212125558962337.jpg') no-repeat center center fixed;
+        background-size: cover;
+
+    }
+
+`
 
 const Logo = styled.h2`
         position : absolute;
@@ -57,13 +68,10 @@ const Main = () =>{
         //console.log(text);
     }
 
-   
-    // const onKeyPress = (e) =>{
-   
-    // }
 
     return (
             <div>
+                <GlobalStyle></GlobalStyle>
                 <Logo>FIFARANG</Logo>
                 <InputUserName placeholder='구단주명을 입력하세요' onChange={change} ></InputUserName>
                 {/* <input type="text" onChange={onTextChange} value={text}></input> */}

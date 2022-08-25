@@ -1,5 +1,14 @@
 import React from 'react';
 import useFetch from 'hooks/useFetch';
+import styled from 'styled-components';
+
+const H2 = styled.h2`
+    font-size : 40px;
+    text-align : center;
+    color : cadetblue;
+    font-family : "DoHyeonRegular";
+`;
+
 
 const MatchType = ({id}) => {
 
@@ -10,7 +19,7 @@ const MatchType = ({id}) => {
     return (
         <div>
             {result.map((item, index)=>(
-               <h2 key={index}>{item.desc}</h2> 
+               <H2 key={index}>{item.desc}</H2> 
             ))}
         </div>
     )

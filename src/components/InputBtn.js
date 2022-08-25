@@ -24,6 +24,8 @@ const InputBtn = forwardRef(({id}, ref1) => {
     
     const onClick = (ref1) => {
         console.log("버튼클릭 : "+id);
+        document.body.style.background = null;
+        document.body.style.backgroundColor = 'aliceblue';
     }
     return (
         <StyledLink to={`/search/${id}`} onClick={onClick}>Search</StyledLink>
