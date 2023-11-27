@@ -1,6 +1,11 @@
 import React,{ useEffect } from 'react';
 import styled from 'styled-components';
 import  WinRate  from 'components/WinRate';
+import { useState } from 'react';
+import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 /**모달창 외부화면*/
 const ModalContainer = styled.div`
@@ -20,8 +25,8 @@ const ModalContainer = styled.div`
 /* 모달창*/
 const ModalBody = styled.div`
     position : absolute;
-    width : 300px;
-    height : 300px;
+    width : 700px;
+    height : 800px;
     padding : 40px;
     text-align : center;
     background-color : rgb(255, 255, 255);
@@ -48,8 +53,36 @@ const H2 = styled.h2`
 `
 
 const Modal = (props) =>{
+    const [fetchCompleted, setFetchCompleted] = useState(false);
+
+    const data = {
+        labels: ['승', '무', '패'],
+        datasets: [
+          {
+            label: '# of Votes',
+            data: [12, 19, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+            ],
+            borderWidth: 1,
+          },
+        ],
+      };
+
+    const handleDataChange = (newData) => {
+        console.log("newData : "+newData);
+        setFetchCompleted(newData);
+    }
+
     
-    console.log(props);
+    //console.log(props);
     const closeModal = () => {
         
         props.closeModal();
@@ -79,7 +112,8 @@ const Modal = (props) =>{
                 </ModalCloseBtn>
                 {props.children}
                 <H2>최근 10경기 승률</H2>
-                <WinRate id={props.id} matchtype={props.matchtype}></WinRate>
+                <WinRate id={props.id} matchtype={props.matchtype} onDataChange={handleDataChange}></WinRate>
+                {fetchCompleted && <Doughnut data={data}></Doughnut>}
             </ModalBody>
         </ModalContainer>
 

@@ -43,9 +43,13 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 const HighestDivision = ({id}) =>{
 
-    const resultMaps = useFetch(`https://api.nexon.co.kr/fifaonline4/v1.0/users/${id}/maxdivision`);
+    HighestDivision.propTypes = {
+        id: PropTypes.string.isRequired
+    };
+
+    const resultMaps = useFetch(`https://public.api.nexon.com/openapi/fconline/v1.0/users/${id}/maxdivision`);
+    const highDivision = useFetch(`https://static.api.nexon.co.kr/fconline/latest/division.json`);
     
-    const highDivision = useFetch(`https://static.api.nexon.co.kr/fifaonline4/latest/division.json`);
 
     const [modal, setModal] = useState(false);
     const [matchType, setMatchType] = useState([]);

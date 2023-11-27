@@ -8,6 +8,7 @@ import Error from "pages/Error";
 import TradeList from 'components/TradeList';
 import styled, {createGlobalStyle} from 'styled-components';
 
+
 const GlobalStyle = createGlobalStyle`
 
     body{
@@ -155,17 +156,19 @@ const ContainerTrade = styled.div`
 
 const Detail = () => {
 
+    Detail.propTypes = {};
+
     const [buyFlag, setBuyFlag] = useState(false);
     const [tradeType , setTradeType] = useState("");
     const [startFlag, setStartFlag] = useState(0);
     const { id } = useParams();
     
   
-    const result = useFetch(`https://api.nexon.co.kr/fifaonline4/v1.0/users?nickname=${id}`);
+    const result = useFetch(`https://public.api.nexon.com/openapi/fconline/v1.0/users?nickname=${id}`);
     
     const accessId = result.accessId;
 
-    console.log("accessId :"+accessId);
+    //console.log("accessId :"+accessId);
 
     const BuyBtn = () => {
          return <Btn  onClick={onClick} /* className={`divider ${buyFlag ? 'buy' : 'sell'}`} */ flag={buyFlag} start = {startFlag}>구매내역 조회</Btn>
@@ -175,12 +178,14 @@ const Detail = () => {
         return  <Btn onClick={onClick} flag={!buyFlag} start = {startFlag} >판매내역 조회</Btn>
     }
 
+   
 
     useEffect(()=>{
         console.log("Detail 실행...");
         
     },[buyFlag]);
 
+    
 
     const onClick = () =>{
         //console.log(e);

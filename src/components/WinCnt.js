@@ -1,30 +1,28 @@
 import React, {useState, useEffect, useRef} from 'react';
 
 
-let cnt = 0;
 
-const WinCnt = ({yn, setCnt}) =>{
+const WinCnt = ({result}) =>{
 
-    //const [winCnt, setWinCnt] = useState([]);
+    const renderCnt = useRef(0);
     
-    const winFun = () =>{
+   /*  const winFun = () =>{
         if(yn==="승"){
-            cnt +=1;
-            console.log(cnt);
+            console.log("승체크");
+            renderCnt.current = renderCnt.current+1;
+            console.log(renderCnt);
         }
-    }
+    } */
 
-    const reset = () => {
-        cnt = 0;
-    }
+    localStorage.setItem('결과', result);
 
     useEffect(()=>{
-        winFun();
+        //winFun();
     },[]);
 
     return (
         <>
-        <div>{cnt}</div>
+        <div>{result}</div>
         
         </>
         

@@ -1,31 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useRef, useState } from 'react';
 import useFetch from 'hooks/useFetch';
 import WinCnt from './WinCnt';
 
-const WinLoseResult = ({id, matchid, x}) =>{
-    //console.log("match : "+matchid);
-    const fetchRequest = useFetch(`https://api.nexon.co.kr/fifaonline4/v1.0/matches/${matchid}`);
 
+
+
+const WinLoseResult = ({id, matchid, chartResult}) =>{
+
+    const fetchRequest = useFetch(`https://public.api.nexon.com/openapi/fconline/v1.0/matches/${matchid}`);
     const matchInfo = fetchRequest.matchInfo;
+    //const [index, setIndex] = useState('');
     
-    let a = 0;
-    
-    const hello = () => {
-        a+=1;
-        console.log(a);
-    }
+    const sendDataToParent = (params) => {
+            console.log("인덱스 : "+params);
+            chartResult(params);
+     }
 
     useEffect(()=>{
-       
+        
     },[]);
-    
+   
     return (
         <>
-        {matchInfo && matchInfo.filter((item)=>item.accessId === id).map((item, index)=>(
-            (item.matchDetail.matchResult === "승" ? hello() : null)
-            
-        ))}
+
+        {matchInfo && 
+            matchInfo
+                .filter((item)=>item.accessId === id)
+                .map((item, index)=>{
+                    sendDataToParent(item.matchDetail.matchResult);
+                    return item.matchDetail.matchResult;
+                })
+        }
         
+        {/* <WinCnt result={item.matchDetail.matchResult}/> */}
         </>
     );
 }

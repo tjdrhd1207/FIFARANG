@@ -14,7 +14,7 @@ const Routing = () => {
             <GlobalFonts/>
             <Routes>
                 <Route path="/" element={<Main/>}></Route>
-                <Route path="/search/:id" element={<Detail/>}></Route>
+                <Route path="/search/:id" element={<Detail id={''} />}></Route>
                 <Route element={<Error/>}></Route>
             </Routes>
         </>

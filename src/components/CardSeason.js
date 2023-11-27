@@ -6,7 +6,7 @@ const CardSeason = ({spid}) =>{
     const seasonId = JSON.stringify(spid).substring(0,3);
     //console.log(typeof(seaonId));
     
-    const fetchRequest = useFetch(`https://static.api.nexon.co.kr/fifaonline4/latest/seasonid.json`);
+    const fetchRequest = useFetch(`https://static.api.nexon.co.kr/fconline/latest/seasonid.json`);
     //console.log(typeof(fetchRequest.seaonId));
 
     const result = fetchRequest.filter((item, index)=>{return item.seasonId == seasonId});

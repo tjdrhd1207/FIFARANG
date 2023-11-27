@@ -12,7 +12,7 @@ const H2 = styled.h2`
 
 const MatchType = ({id}) => {
 
-    const matchTypeResponse = useFetch(`https://static.api.nexon.co.kr/fifaonline4/latest/matchtype.json`);
+    const matchTypeResponse = useFetch(`https://static.api.nexon.co.kr/fconline/latest/matchtype.json`);
 
     const result = matchTypeResponse.filter((item)=>{ return item.matchtype === id});
 

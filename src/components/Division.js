@@ -13,7 +13,7 @@ const DivisionDiv = styled.div`
 
 const Division = ({id}) => {
 
-    const fetchResult = useFetch(`https://static.api.nexon.co.kr/fifaonline4/latest/division.json`);
+    const fetchResult = useFetch(`https://static.api.nexon.co.kr/fconline/latest/division.json`);
 
     const divisionNum = id/100;
 

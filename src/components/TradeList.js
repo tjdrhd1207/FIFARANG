@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useFetch from 'hooks/useFetch';
 import CardSeason from './CardSeason';
 import SoccerPlayer from './SoccerPlayer'; 
 import styled from 'styled-components';
+import Loader from './Loader';
 
 /* 강화등급 css*/
-const Grade = styled.div`
+const Grade = styled.td`
     /* background-color : ${(props)=> props.value === 1 ? `#c5c8c9` : (props)=> props.value < 4 ? `#7e3f27` : `silver`}; */
     
     ${(props)=>props.value === 1 ? 
@@ -92,32 +93,62 @@ const TD1 = styled.td`
         width: 40%;
         margin-right: 10%;
 `
+
+const BP = styled.td`
+        font-size : 22px;
+`
 const TR = styled.tr`
         display : flex;
 `
 
-const CardInfo = styled.td`
-        flex-direction: column;
-        display: flex;
-        width: 40%;
-`
+// const CardInfo = styled.td`
+//         flex-direction: column;
+//         display: flex;
+//         width: 40%;
+// `
+
 
 const TradeList = ({id, tradetype}) => {
+    
+    const [page, setPage] = useState(10);
+    const [loading, setLoading] = useState(true);
 
-    const [start, setStart] = useState(0);
-    const [end, setEnd] = useState(10);
-
-    //console.log("trade : "+trade);
-    const fetchRequest = useFetch(`https://api.nexon.co.kr/fifaonline4/v1.0/users/${id}/markets?tradetype=${tradetype}&offset=0&limit=100`);
-
-    //console.log(fetchRequest);
-
+    const bp = useRef(0);
+    
+    const fetchRequest = useFetch(`https://public.api.nexon.com/openapi/fconline/v1.0/users/${id}/markets?tradetype=${tradetype}&offset=0&limit=${page}`);
+    
     const handleImgError = (e) =>{
         e.target.src = `https://image5jvqbd.fmkorea.com/files/attach/new/20170630/486616/61245053/697171837/99b983892094b5c6d2fc3736e15da7d1.JPG`;
     }
+    
+    const changeValue = (e) =>{
 
+        e = e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return e;
+    }
+    
     useEffect(()=>{
         
+        
+    },[page]);
+
+    const handleScroll = () =>{
+
+        if(
+            window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight 
+        ){
+            setLoading(true);
+            if(page<100){
+                setPage((prev) => prev + 1);
+                console.log("페이지 : ",page);
+            }
+        }
+    }
+
+    useEffect(()=>{
+        window.addEventListener("scroll", handleScroll);
+
+        return ()=> window.removeEventListener("scroll" , handleScroll);
     },[]);
 
     return (
@@ -135,25 +166,23 @@ const TradeList = ({id, tradetype}) => {
                     </tr>
                 </thead> */}
                 <TBody>
-                    
-                    {fetchRequest.slice(start, end).map((item, index)=>(
-                    
+                
+                    {fetchRequest.map((item, index)=>(
+                        
                         <TR key={index+1}>
-                            
                             <Card>
-                            <td><img src={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/playersAction/p${item.spid}.png`} style={{width : "190px", height : "190px"}} onError={handleImgError} alt=""></img></td>
+                                <img src={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/playersAction/p${item.spid}.png`} style={{width : "190px", height : "190px"}} onError={handleImgError} alt=""></img>
                             </Card>
-                            <CardInfo>
-                            <td><SoccerPlayer spid={item.spid} /></td>
+                            {/* <CardInfo></CardInfo> */}
+                            <td><SoccerPlayer spid={item.spid}/></td>
                             <td><CardSeason spid={item.spid}></CardSeason></td>
-                            <td><Grade value={item.grade}>{item.grade}</Grade></td>
-                            <td>{item.value}</td>
+                            <Grade style={{width: "30px"}} value={item.grade}>{item.grade}</Grade>
+                            <BP>{changeValue(item.value)}BP</BP>
                             <td>{JSON.stringify(item.tradeDate).substring(1,11)}</td>
-                            </CardInfo>
-                            
                         </TR>
                     
                     ))}
+                    {/* {<Loader/>} */}
                 </TBody>
             </table>
         </TradeDiv>
