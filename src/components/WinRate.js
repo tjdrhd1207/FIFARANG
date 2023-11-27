@@ -25,6 +25,7 @@ const WinRate = ({id, matchtype, onDataChange}) =>{
         }
     },[fetchRequest, onDataChange]);
 
+    
     return (
         <>
         {fetchRequest.map((item, index)=>(
